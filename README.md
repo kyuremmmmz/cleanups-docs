@@ -3,20 +3,6 @@
 Scanned on Feb 23, 2026. This file highlights files that are longer than warranted for their responsibilities (UI or simple logic implemented verbosely). For each file I show why it's likely verbose and give short remediation steps you can apply incrementally.
 
 ## Highest priority (very long but simple pieces)
-
-- `lib/presentation/screens/journey/daily_insight_screen.dart` (1033 lines)
-  - Why it's verbose: very large `State` class with a huge `build()` that inlines multiple complex widgets (photo display, badges, AI card, stats row, chat UI, message bubbles, input). Many repeated Container/BoxDecoration patterns and inline style values.
-  - Simplify by:
-    - Extracting sub-widgets: `InsightPhoto`, `AiAnalysisCard`, `StatsRow`, `ChatPanel` (with `MessageBubble` and `ChatInput`).
-    - Moving chat response generation and message list state to a `riverpod` notifier/provider.
-    - Centralizing repeated styles (BoxDecoration, paddings, colors) into `core/styles.dart` or constants.
-
-- `lib/presentation/screens/journey/journey_camera_screen.dart` (623 lines)
-  - Why it's verbose: camera lifecycle, UI overlays and controls mixed in the same class; long build + controller setup.
-  - Simplify by:
-    - Extracting camera controller/permission lifecycle into `core/services/camera_service.dart` or a provider.
-    - Splitting UI into `CameraPreview`, `CameraControls`, `CaptureOverlay` widgets.
-
 - `lib/presentation/screens/journey/journey_history_screen.dart` (632 lines)
   - Why it's verbose: long screen that renders history list with heavy item building and formatting inline.
   - Simplify by:
